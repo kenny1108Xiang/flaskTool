@@ -1,0 +1,11 @@
+# 忽略.env檔案
+.env
+
+# 忽略 Python 虛擬環境資料夾
+.venv/
+
+# 忽略 Python 的編譯暫存檔案
+__pycache__/
+
+# 忽略 ngrok.exe
+ngrok.exe

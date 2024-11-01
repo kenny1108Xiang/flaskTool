@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颱風假查詢</title>
+    <!-- 引入 Ubuntu 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 基本樣式重置與設置 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333333;
+            font-size: 2rem;
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+            font-weight: 700;
+            /* 使用較粗的字重 */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555555;
+            font-weight: 500;
+            /* 使用較粗的字重 */
+            text-align: center;
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7"><path fill="%23555" d="M0 0l5 7 5-7z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px 7px;
+            cursor: pointer;
+            text-align-last: center;
+            /* 讓選項文字置中 */
+            font-size: 1rem;
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+        }
+
+        select:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            color: #333333;
+            text-align: center;
+            /* 讓查詢結果文字置中 */
+            font-size: 1rem;
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+        }
+
+        .message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1rem;
+            font-family: 'Ubuntu', sans-serif;
+            /* 更新字體為 Ubuntu */
+        }
+
+        hr {
+            border: 1px solid #cccccc;
+            margin: 15px 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2c3e50, #4ca1af);
+                color: #ecf0f1;
+            }
+
+            .container {
+                background-color: #34495e;
+                color: #ecf0f1;
+            }
+
+            h1 {
+                color: #ecf0f1;
+            }
+
+            label {
+                color: #bdc3c7;
+            }
+
+            select {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                border: 1px solid #7f8c8d;
+            }
+
+            select option {
+                background-color: #34495e;
+                color: #ecf0f1;
+            }
+
+            button {
+                background-color: #1abc9c;
+            }
+
+            button:hover {
+                background-color: #16a085;
+            }
+
+            .result {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+            }
+
+            .message {
+                color: #e74c3c;
+            }
+
+            hr {
+                border-color: #7f8c8d;
+            }
+        }
+
+
+        /* 基本響應式斷點 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            button {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            select,
+            button,
+            .result,
+            .message {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* iPhone 13 */
+        @media only screen and (min-width: 390px) and (max-width: 390px) and (min-height: 844px) and (max-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+                max-width: 350px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            select,
+            button {
+                font-size: 1rem;
+            }
+
+            .result {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 桌上型電腦 1920x1080 */
+        @media only screen and (min-width: 1920px) {
+
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            select,
+            button {
+                font-size: 1.2rem;
+            }
+
+            .result {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* 桌上型電腦 2560x1440 */
+        @media only screen and (min-width: 2560px) {
+
+            .container {
+                max-width: 800px;
+                padding: 50px;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            select,
+            button {
+                font-size: 1.4rem;
+            }
+
+            .result {
+                padding: 25px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>颱風假查詢</h1>
+        <form action="/search" method="post">
+            <label for="cities">選擇縣市：</label>
+            <select id="cities" name="cities" required>
+                <option selected disabled hidden>請選擇一個縣市</option>
+                <option value="基隆市">基隆市</option>
+                <option value="臺北市">臺北市</option>
+                <option value="新北市">新北市</option>
+                <option value="桃園市">桃園市</option>
+                <option value="新竹市">新竹市</option>
+                <option value="新竹縣">新竹縣</option>
+                <option value="苗栗縣">苗栗縣</option>
+                <option value="臺中市">臺中市</option>
+                <option value="彰化縣">彰化縣</option>
+                <option value="南投縣">南投縣</option>
+                <option value="雲林縣">雲林縣</option>
+                <option value="嘉義市">嘉義市</option>
+                <option value="嘉義縣">嘉義縣</option>
+                <option value="臺南市">臺南市</option>
+                <option value="高雄市">高雄市</option>
+                <option value="屏東縣">屏東縣</option>
+                <option value="宜蘭縣">宜蘭縣</option>
+                <option value="花蓮縣">花蓮縣</option>
+                <option value="臺東縣">臺東縣</option>
+                <option value="澎湖縣">澎湖縣</option>
+                <option value="連江縣">連江縣</option>
+                <option value="金門縣">金門縣</option>
+            </select>
+            <button type="submit">查詢</button>
+        </form>
+        <!-- 顯示查詢結果 -->
+        <div class="result">
+            {% if message %}
+            <p class="message">{{ message }}</p>
+            {% elif city_data and update_time %}
+            <p><strong>查詢結果：</strong></p>
+            <p><br>{{ city_data }}</p>
+            <hr>
+            <p><br>{{ update_time }}</p>
+            <hr>
+            <p><br>{{ execution_time }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
