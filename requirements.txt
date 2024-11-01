@@ -1,0 +1,16 @@
+# 20241101
+# pip install -r requirements.txt
+
+pip==24.3.1
+
+#爬蟲
+requests==2.32.3
+beautifulsoup4==4.12.3
+
+#server套件
+Flask==3.0.3
+
+#開發環境套件
+gunicorn==23.0.0
+python-dotenv==1.0.1
+waitress==3.0.1
