@@ -5,7 +5,7 @@
 ###### 目前有使用 ngrok 測試開放到網際網路上
 
 * 目前有查詢颱風假功能 
-     - [x] https://www.dgpa.gov.tw/typh/daily/nds.html
+     - [x] https://www.dgpa.gov.tw/typh/daily/nds.html (爬蟲)
 
 * 想要達成**查詢**功能:
      - [ ] 各縣市天氣預報 2024/11/01
