@@ -9,3 +9,6 @@ __pycache__/
 
 # 忽略 ngrok.exe
 ngrok.exe
+
+# 忽略 windows執行ngrok與flask
+startAll.bat

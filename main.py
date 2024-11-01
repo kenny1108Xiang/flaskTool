@@ -1,4 +1,3 @@
-import logging
 from flask import Flask
 from dotenv import load_dotenv
 import os
@@ -50,5 +49,5 @@ def search():
 if __name__ == '__main__':
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", 200))
-    app.logger.info(f"Starting Flask application on {host}:{port}")
+    print(f"Starting Flask application on {host}:{port}")
     serve(app, host=host, port=port)
