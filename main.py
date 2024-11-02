@@ -23,6 +23,9 @@ app.register_blueprint(Weather_bp)
 def index():
     return render_template('index.html')
 
+@app.route('/404NotFound')
+def NotFound_Page():
+    return render_template('404.html')
 
 if __name__ == '__main__':
     host = os.getenv("HOST", "0.0.0.0")
