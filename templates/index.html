@@ -25,13 +25,6 @@
             <h2>功能選單</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>天氣查詢</h3>
-                    <p>即時查詢所在地的天氣資訊</p>
-                    <form action="{{ url_for('weather.weather') }}" method="get">
-                        <button type="submit">查看天氣</button>
-                    </form>
-                </div>
-                <div class="feature-card">
                     <h3>颱風假查詢</h3>
                     <p>查看最新的颱風假公告及規定</p>
                     <form action="{{ url_for('typhoonAlarm.typhoonAlarm') }}" method="get">
@@ -39,8 +32,15 @@
                     </form>
                 </div>
                 <div class="feature-card">
-                    <h3>工具</h3>
-                    <p>更多工具服務，如新聞查詢、日曆等</p>
+                    <h3>天氣查詢</h3>
+                    <p>即時查詢所在地的今明36小時天氣資訊</p>
+                    <form action="{{ url_for('weather.weather') }}" method="get">
+                        <button type="submit">查看天氣</button>
+                    </form>
+                </div>
+                <div class="feature-card">
+                    <h3>空氣品質查詢</h3>
+                    <p>查看</p>
                     <form action="{{ url_for('NotFound_Page') }}" method="get">
                         <button type="submit">查看工具</button>
                     </form>
