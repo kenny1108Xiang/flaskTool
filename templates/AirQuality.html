@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空氣品質查詢</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 基本樣式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555555;
+            font-weight: 500;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            color: #333333;
+        }
+
+        .message {
+            color: #e74c3c;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            margin-bottom: 0;
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>空氣品質查詢</h1>
+        <form action="{{ url_for('airQuality.airQuality_search') }}" method="post">
+            <label for="citySelect">選擇縣市：</label>
+            <select id="citySelect" name="city" required onchange="updateDistrictOptions()">
+                <option selected disabled hidden>請選擇一個縣市</option>
+                <!-- 縣市選項將自動生成 -->
+            </select>
+            
+            <label for="districtSelect">選擇測站地區：</label>
+            <select id="districtSelect" name="district" required>
+                <option selected disabled hidden>請先選擇縣市</option>
+                <!-- 地區選項將根據所選縣市生成 -->
+            </select>
+
+            <button type="submit">查詢</button>
+            <hr>
+        </form>
+
+        <!-- 顯示查詢結果 -->
+        <div class="result">
+            {% if message %}
+            <p class="message">{{ message }}</p>
+            {% elif air_data %}
+            <p><strong>{{ city }} - {{ district }}區 的空氣品質：</strong></p>
+            <p>測站名稱: {{ air_data.get("測站名稱", "無資料") }}</p>
+            <p>狀態: {{ air_data.get("狀態", "無資料") }}</p>
+            <p>PM2.5: {{ air_data.get("PM2.5", "無資料") }} μg/m³</p>
+            <p>資料發布時間: {{ air_data.get("發布時間", "無資料") }}</p>
+            <hr>
+            <p>{{ execution_time }}</p>
+            {% endif %}
+        </div>
+        
+        <button class="back-btn" onclick="location.href='/'">返回</button>
+    </div>
+
+    <script>
+        const data = {
+            "基隆市": ["基隆"],
+            "新北市": ["汐止", "萬里", "新店", "土城", "板橋", "新莊", "菜寮", "林口", "淡水", "三重", "富貴角", "新北(樹林)"],
+            "臺北市": ["士林", "中山", "萬華", "古亭", "松山", "大同", "陽明"],
+            "桃園市": ["桃園", "大園", "觀音", "平鎮", "龍潭", "中壢"],
+            "新竹縣": ["湖口", "竹東"],
+            "新竹市": ["新竹"],
+            "苗栗縣": ["頭份", "苗栗", "三義"],
+            "臺中市": ["豐原", "沙鹿", "大里", "忠明", "西屯"],
+            "彰化縣": ["彰化", "線西", "二林", "大城", "彰化（員林）"],
+            "南投縣": ["南投", "竹山", "埔里"],
+            "雲林縣": ["斗六", "崙背", "臺西", "麥寮"],
+            "嘉義縣": ["新港", "朴子"],
+            "嘉義市": ["嘉義"],
+            "臺南市": ["新營", "善化", "安南", "臺南", "臺南（麻豆）"],
+            "高雄市": ["美濃", "橋頭", "仁武", "鳳山", "大寮", "林園", "楠梓", "左營", "前金", "前鎮", "小港", "復興", "高雄（湖內）"],
+            "屏東縣": ["屏東", "潮州", "恆春", "屏東（琉球）", "屏東(枋山)"],
+            "臺東縣": ["臺東", "關山"],
+            "花蓮縣": ["花蓮"],
+            "宜蘭縣": ["宜蘭", "冬山", "宜蘭（頭城）"],
+            "澎湖縣": ["馬公"],
+            "金門縣": ["金門"],
+            "連江縣": ["馬祖"]
+        };
+
+        // 初始化縣市選項
+        const citySelect = document.getElementById('citySelect');
+        for (let county in data) {
+            let option = document.createElement('option');
+            option.value = county;
+            option.textContent = county;
+            citySelect.appendChild(option);
+        }
+
+        // 更新地區選項
+        function updateDistrictOptions() {
+            const districtSelect = document.getElementById('districtSelect');
+            const selectedCounty = citySelect.value;
+
+            districtSelect.innerHTML = '<option selected disabled hidden>請選擇測站地區</option>';
+
+            if (selectedCounty && data[selectedCounty]) {
+                data[selectedCounty].forEach(district => {
+                    let option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

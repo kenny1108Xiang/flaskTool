@@ -40,9 +40,9 @@
                 </div>
                 <div class="feature-card">
                     <h3>空氣品質查詢</h3>
-                    <p>查看</p>
-                    <form action="{{ url_for('NotFound_Page') }}" method="get">
-                        <button type="submit">查看工具</button>
+                    <p>查詢所在地的1小時內空氣品質</p>
+                    <form action="{{ url_for('airQuality.AirQuality') }}" method="get">
+                        <button type="submit">查看空氣品質</button>
                     </form>
                 </div>
                 <div class="feature-card">

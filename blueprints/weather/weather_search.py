@@ -5,7 +5,7 @@ import time
 
 class Weather:
     def __init__(self):
-        self.api_token = os.getenv("api_token")
+        self.api_token = os.getenv("api_token_weather")
         self.weather_url = f"https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization={self.api_token}&format=JSON"
 
     def get_weather(self, city: str):
