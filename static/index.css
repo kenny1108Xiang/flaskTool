@@ -1,0 +1,215 @@
+/* 基本樣式重置與設置 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    color: #333;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Header 樣式 */
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.header-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.header-buttons form,
+.header-buttons button {
+    margin-bottom: 10px;
+}
+
+.header-buttons form:last-child,
+.header-buttons button:last-child {
+    margin-bottom: 0;
+}
+
+.login-button,
+.theme-toggle-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover,
+.theme-toggle-button:hover {
+    background-color: #45a049;
+}
+
+/* 主內容區域 */
+main {
+    flex: 1;
+    width: 100%;
+}
+
+.features {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.feature-card form {
+    display: inline;
+}
+
+.feature-card button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.feature-card button:hover {
+    background-color: #007bb5;
+}
+
+/* Footer 樣式 */
+footer {
+    width: 50%;
+    padding: 20px 0;
+    margin: 40px auto 0 auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 深色主題 */
+.dark-mode {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af) !important;
+    color: #ecf0f1 !important;
+}
+
+.dark-mode .feature-card {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+.dark-mode footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border-top: 1px solid #555;
+}
+
+.dark-mode footer p {
+    color: #ecf0f1;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .login-button,
+    .theme-toggle-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .features h2 {
+        font-size: 1.5rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+
+    .feature-card button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>颱風假查詢</title>
-    <!-- 引入 Ubuntu 字體 -->
+    <title>天氣查詢</title>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* 基本樣式 */
@@ -94,10 +93,10 @@
 
 <body>
     <div class="container">
-        <h1>颱風假查詢</h1>
-        <form action="{{ url_for('typhoonAlarm.typhoonAlarm_search') }}" method="post">
+        <h1>天氣查詢</h1>
+        <form action="{{ url_for('weather.weather_search') }}" method="post">
             <label for="cities">選擇縣市：</label>
-            <select id="cities" name="cities" required>
+            <select id="cities" name="city" required>
                 <option selected disabled hidden>請選擇一個縣市</option>
                 <option value="基隆市">基隆市</option>
                 <option value="臺北市">臺北市</option>
@@ -125,21 +124,29 @@
             <button type="submit">查詢</button>
             <hr>
         </form>
+
         <!-- 顯示查詢結果 -->
         <div class="result">
             {% if message %}
             <p class="message">{{ message }}</p>
-            {% elif city_data and update_time %}
-            <p><strong>查詢結果：</strong></p>
-            <p>{{ city_data }}</p>
+            {% elif city_data %}
+            <p><strong>{{ city }}的天氣預報：</strong></p>
+            {% for period, elements in city_data.items() %}
+            <p>時間段:</p>
+            <pre>{{ period }}</pre>
+            <p>天氣: {{ elements.get("Wx", "無資料") }}</p>
+            <p>降雨機率: {{ elements.get("PoP", "無資料") }}%</p>
+            <p>最低溫度: {{ elements.get("MinT", "無資料") }}°C</p>
+            <p>最高溫度: {{ elements.get("MaxT", "無資料") }}°C</p>
+            <p>舒適度: {{ elements.get("CI", "無資料") }}</p>
             <hr>
-            <p>{{ update_time }}</p>
-            <hr>
+            {% endfor %}
             <p>{{ execution_time }}</p>
             {% endif %}
         </div>
         <button class="back-btn" onclick="location.href='/'">返回</button>
     </div>
+    
 </body>
 
 </html>

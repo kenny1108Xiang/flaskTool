@@ -6,189 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首頁</title>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* 基本樣式重置與設置 */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Ubuntu', sans-serif;
-            /* 更新字體為 Ubuntu */
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
-            text-align: center;
-            color: #333;
-        }
-
-        /* Header 樣式 */
-        header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 2rem;
-            color: #333;
-        }
-
-        .login-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .login-button:hover {
-            background-color: #45a049;
-        }
-
-        /* 主內容區域 */
-        main {
-            flex: 1;
-            width: 100%;
-        }
-
-        .features {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .feature-card {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .feature-card p {
-            font-size: 1rem;
-            margin-bottom: 20px;
-            color: #666;
-        }
-
-        .feature-card form {
-            display: inline;
-        }
-
-        .feature-card button {
-            background-color: #008CBA;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .feature-card button:hover {
-            background-color: #007bb5;
-        }
-
-        /* Footer 樣式 */
-        footer {
-            width: 100%;
-            padding: 20px 0;
-            margin-top: 40px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-top: 1px solid #ddd;
-        }
-
-        footer p {
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* 響應式調整 */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            .login-button {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-
-            .features h2 {
-                font-size: 1.5rem;
-            }
-
-            .feature-card h3 {
-                font-size: 1.3rem;
-            }
-
-            .feature-card p {
-                font-size: 0.9rem;
-            }
-
-            .feature-card button {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .feature-grid {
-                grid-template-columns: repeat(2, 1fr);
-                /* 中等螢幕時顯示兩欄 */
-            }
-        }
-
-        @media (max-width: 600px) {
-            .feature-grid {
-                grid-template-columns: 1fr;
-                /* 小螢幕時顯示一欄 */
-            }
-        }
-    </style>
+    <link  href="{{ url_for('static', filename = 'index.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <h1>歡迎來到翔的服務平台</h1>
-        <form action="{{ url_for('Login.Login_Page') }}" method="get" style="display:inline;">
-            <button type="submit" class="login-button">登入</button>
-        </form>
+        <div class="header-buttons">
+            <form action="{{ url_for('Login.Login_Page') }}" method="get" style="display:inline;">
+                <button type="submit" class="login-button">登入</button>
+            </form>
+            <button class="theme-toggle-button" onclick="toggleTheme()">更換背景主題</button>
+        </div>
     </header>
 
     <main>
@@ -198,8 +27,8 @@
                 <div class="feature-card">
                     <h3>天氣查詢</h3>
                     <p>即時查詢所在地的天氣資訊</p>
-                    <form method="get">
-                        <button type="submit" disabled>查看天氣</button>
+                    <form action="{{ url_for('weather.weather') }}" method="get">
+                        <button type="submit">查看天氣</button>
                     </form>
                 </div>
                 <div class="feature-card">
@@ -229,7 +58,35 @@
 
     <footer>
         <p>&copy; 2024 我的服務平台. All Rights Reserved.</p>
+        <p>https://github.com/kenny1108Xiang/flaskTool</p>
     </footer>
+
+    <script>
+        // 加載頁面時檢查 localStorage 並設置主題
+        document.addEventListener("DOMContentLoaded", function () {
+            let theme = localStorage.getItem("theme");
+            if (!theme || theme === "light") {
+                // 默認為亮色主題
+                document.body.classList.remove("dark-mode");
+                localStorage.setItem("theme", "light");
+            } else if (theme === "dark") {
+                // 啟用深色主題
+                document.body.classList.add("dark-mode");
+            }
+        });
+
+        // 切換主題並保存到 localStorage
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+
+            // 保存主題狀態
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        }
+    </script>
 </body>
 
 </html>
