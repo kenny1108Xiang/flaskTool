@@ -26,6 +26,6 @@
      - [ ] 刪除帳號功能
 
 * 檔案管理
-     - [ ] 使用blueprints
+     - [x] 使用blueprints
 
 ![GITHUB](https://megapx-assets.dcard.tw/images/7e898349-582c-481d-88bd-7a98370be5cd/full.jpeg "我就爛") 
