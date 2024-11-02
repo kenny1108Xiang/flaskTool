@@ -17,7 +17,7 @@ def typhoonAlarm_search():
     city = request.form.get("cities")
     if not city:
         session['message'] = '請選取表單中的縣市'
-        return redirect(url_for('index'))
+        return redirect(url_for('typhoonAlarm.typhoonAlarm'))
 
     _search = TyphoonSearch()
     result = _search.search_city(city)
