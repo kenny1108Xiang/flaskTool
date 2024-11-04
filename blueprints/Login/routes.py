@@ -1,5 +1,5 @@
 from . import Login_bp
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
@@ -20,12 +20,17 @@ def Login_Page():
             password = form.password.data
 
             search = Login_Class()
-            login_status = search.Login(username, password)
+            User_Data = search.Login(username, password)
 
-            if login_status:
-                return "登入成功，歡迎！"
+            if User_Data:
+                session["id"] = User_Data[0]
+                session["username"] = User_Data[1]
+                session["permission"] = User_Data[2]
+
+                return f"登入成功，歡迎 {session["username"]}" #登入後的網頁
+            
             else:
-                flash("登入失敗，帳號或密碼不正確")
+                flash("帳號或密碼錯誤")
                 return redirect(url_for('Login.Login_Page'))
 
     return render_template('auth/Login.html', form=form)

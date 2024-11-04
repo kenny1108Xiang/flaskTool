@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@
             align-items: center;
             margin: 0;
         }
+
         .login-card {
             background: #ffffff;
             border-radius: 15px;
@@ -29,22 +31,27 @@
             width: 100%;
             max-width: 400px;
         }
+
         .form-title {
             font-size: 28px;
             font-weight: 700;
             color: #5d6879;
             margin-bottom: 30px;
         }
+
         .form-control {
             border-radius: 10px;
             height: 50px;
             font-size: 16px;
             transition: 0.3s ease;
         }
-        .form-control:hover, .form-control:focus {
+
+        .form-control:hover,
+        .form-control:focus {
             border-color: #5d6879;
             box-shadow: 0 0 8px rgba(93, 104, 121, 0.2);
         }
+
         .btn-submit {
             background-color: #5d6879;
             border: none;
@@ -56,23 +63,33 @@
             margin-top: 20px;
             transition: background-color 0.3s ease, transform 0.2s;
         }
+
         .btn-submit:hover {
             background-color: #4a5566;
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(74, 85, 102, 0.2);
         }
+
         .btn-narrow {
             width: 90px;
             font-size: 16px;
             transition: background-color 0.3s ease, transform 0.2s;
         }
+
         .btn-narrow:hover {
             background-color: #4a5566;
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(74, 85, 102, 0.2);
         }
+
+        .error_Message {
+            color: red;
+            font-size: 18px;
+        }
+
     </style>
 </head>
+
 <body>
     <div class="login-card">
         <div class="form-title">Sign In</div>
@@ -87,6 +104,13 @@
                 {{ form.password(class="form-control") }}
                 <label for="floatingPassword">密碼</label>
             </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class="error_Message">{{ messages[0] }}</p>
+                {% endif %}
+            {% endwith %}
+
             {{ form.submit(class="btn btn-primary btn-submit mb-2") }}
         </form>
         <!-- 忘記密碼按鈕 -->
@@ -95,7 +119,11 @@
         <button class="btn btn-secondary btn-narrow" onclick="location.href='/'">返回</button>
     </div>
 
+
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
