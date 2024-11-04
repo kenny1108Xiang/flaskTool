@@ -3,17 +3,22 @@ from dotenv import load_dotenv
 import os
 from waitress import serve
 from flask import render_template
+from flask_bootstrap import Bootstrap
 
 from blueprints import typhoonAlarm_bp
 from blueprints import Login_bp
 from blueprints import Weather_bp
 from blueprints import airQuality_bp
 
+
+
 load_dotenv()
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
+Bootstrap(app) 
 
 app.register_blueprint(typhoonAlarm_bp)
 app.register_blueprint(Login_bp)

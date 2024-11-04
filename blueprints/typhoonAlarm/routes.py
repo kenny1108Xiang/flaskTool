@@ -24,7 +24,7 @@ def typhoonAlarm_search():
 
     # 如果找不到結果
     if result["city_data"] is None:
-        session['message'] = f"找不到該縣市 '{city}'"
+        session['message'] = f"找不到該縣市 '{city}' 的颱風警報資訊"
     else:
         # 如果找到結果，將結果存入 session
         session['city_data'] = ', '.join(result["city_data"])  # 將 city_data 轉為字符串
