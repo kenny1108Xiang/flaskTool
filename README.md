@@ -4,6 +4,8 @@
 
 ###### 目前有使用 ngrok 測試開放到網際網路上
 
+###### 由於windows與linux使用環境變數有所差異，所以暫時使用windows來開發測試
+
 * 目前有查詢颱風假功能 
      - [x] https://www.dgpa.gov.tw/typh/daily/nds.html (爬蟲)
 
