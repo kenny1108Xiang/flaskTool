@@ -35,7 +35,3 @@ def Login_Page():
 
     return render_template('auth/Login.html', form=form)
 
-@Login_bp.route('/forgot')
-def forgot_password():
-    return render_template('auth/Forgot.html')
-

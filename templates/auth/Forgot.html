@@ -1,11 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Meta tags and title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register</title>
+
+    <!-- Favicon and Fonts -->
+    <link rel="icon" href="{{ url_for('static', filename = 'ico/lock_ico.ico') }}" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #a7b8cc);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #5d6879;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            height: 50px;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+
+        .form-control:hover,
+        .form-control:focus {
+            border-color: #5d6879;
+            box-shadow: 0 0 8px rgba(93, 104, 121, 0.2);
+        }
+
+        .btn-submit {
+            background-color: #5d6879;
+            border: none;
+            width: 100%;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #4a5566;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(74, 85, 102, 0.2);
+        }
+
+        .btn-narrow {
+            width: 90px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .btn-narrow:hover {
+            background-color: #4a5566;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(74, 85, 102, 0.2);
+        }
+
+        .error_Message {
+            color: red;
+            font-size: 18px;
+        }
+    </style>
 </head>
+
 <body>
-    忘記密碼
+    <div class="login-card">
+        <div class="form-title">Sign Up</div>
+        <!-- Registration Form -->
+        <form method="POST" action="{{ url_for('Register.Register_Page') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-floating mb-3">
+                {{ form.full_name(class="form-control", id="floatingFullName") }}
+                <label for="floatingFullName">使用者名稱</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.username(class="form-control", id="floatingUsername") }}
+                <label for="floatingUsername">帳號</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.password(class="form-control", id="floatingPassword") }}
+                <label for="floatingPassword">密碼</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.confirm_password(class="form-control", id="floatingConfirmPassword") }}
+                <label for="floatingConfirmPassword">確認密碼</label>
+            </div>
+
+            <!-- Display Error Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class="error_Message">{{ messages[0] }}</p>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Submit Button -->
+            {{ form.submit(class="btn btn-primary btn-submit mb-2") }}
+        </form>
+
+        <!-- Return Button -->
+        <button class="btn btn-secondary btn-narrow" onclick="location.href='/Login/'">返回</button>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

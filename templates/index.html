@@ -14,7 +14,7 @@
     <header>
         <h1>歡迎來到翔的服務平台</h1>
         <div class="header-buttons">
-            <form action="{{ url_for('Login.Login_Page') }}" method="get" style="display:inline;">
+            <form action="{{ url_for('Login.Login_Page') }}" method="post" style="display:inline;">
                 <button type="submit" class="login-button">登入</button>
             </form>
             <button class="theme-toggle-button" onclick="toggleTheme()">更換背景主題</button>

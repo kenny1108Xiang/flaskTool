@@ -6,11 +6,10 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 
 from blueprints import typhoonAlarm_bp
-from blueprints import Login_bp
 from blueprints import Weather_bp
 from blueprints import airQuality_bp
-
-
+from blueprints import Login_bp
+from blueprints import Register_bp
 
 load_dotenv()
 
@@ -24,6 +23,7 @@ app.register_blueprint(typhoonAlarm_bp)
 app.register_blueprint(Login_bp)
 app.register_blueprint(Weather_bp)
 app.register_blueprint(airQuality_bp)
+app.register_blueprint(Register_bp)
 
 @app.route('/')
 @app.route('/index')
