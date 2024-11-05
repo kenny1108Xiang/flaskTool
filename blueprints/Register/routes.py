@@ -19,4 +19,4 @@ class RegistrationForm(FlaskForm):
 @Register_bp.route('/', methods=['GET', 'POST'])
 def Register_Page():
     form = RegistrationForm()
-    return render_template('auth/Forgot.html', form=form)
+    return render_template('auth/Register.html', form=form)

@@ -27,7 +27,7 @@ def Login_Page():
                 session["username"] = User_Data[1]
                 session["permission"] = User_Data[2]
 
-                return f"登入成功，歡迎 {session["username"]}" #登入後的網頁
+                return redirect(url_for('auth.auth_index', username=session["username"]))
             
             else:
                 flash("帳號或密碼錯誤")

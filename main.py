@@ -10,6 +10,7 @@ from blueprints import Weather_bp
 from blueprints import airQuality_bp
 from blueprints import Login_bp
 from blueprints import Register_bp
+from blueprints import auth_bp
 
 load_dotenv()
 
@@ -24,6 +25,7 @@ app.register_blueprint(Login_bp)
 app.register_blueprint(Weather_bp)
 app.register_blueprint(airQuality_bp)
 app.register_blueprint(Register_bp)
+app.register_blueprint(auth_bp)
 
 @app.route('/')
 @app.route('/index')

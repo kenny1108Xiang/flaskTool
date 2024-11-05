@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>網頁</p>
+    <form action="{{ url_for('auth.Logout') }}" method="post">
+        <button type="submit">登出</button>
+    </form>
+
+    {% if 'username' not in session %}
+    <script>
+        window.location.href = "{{ url_for('Login.Login_Page') }}";
+    </script>
+    {% endif %}
+</body>
+</html>
