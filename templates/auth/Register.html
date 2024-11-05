@@ -99,11 +99,11 @@
         <form method="POST" action="{{ url_for('Register.Register_Page') }}">
             {{ form.hidden_tag() }}
             <div class="form-floating mb-3">
-                {{ form.full_name(class="form-control", id="floatingFullName") }}
+                {{ form.username(class="form-control", id="floatingFullName") }}
                 <label for="floatingFullName">使用者名稱</label>
             </div>
             <div class="form-floating mb-3">
-                {{ form.username(class="form-control", id="floatingUsername") }}
+                {{ form.account(class="form-control", id="floatingUsername") }}
                 <label for="floatingUsername">帳號</label>
             </div>
             <div class="form-floating mb-3">

@@ -117,6 +117,13 @@
         <button class="btn btn-secondary btn-narrow" onclick="location.href='/Register/'">註冊</button>
         <!-- 返回按鈕 -->
         <button class="btn btn-secondary btn-narrow" onclick="location.href='/'">返回</button>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
 
 
