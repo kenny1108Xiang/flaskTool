@@ -12,3 +12,6 @@ ngrok.exe
 
 # 忽略 windows執行ngrok與flask
 startAll.bat
+
+# 不要上傳所有資料庫
+*.db
