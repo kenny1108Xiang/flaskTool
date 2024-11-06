@@ -7,7 +7,6 @@ def send_email(recipient_email, subject, body):
     sender_email = 'denny0979539212@gmail.com'
     sender_password = os.getenv('sender_password')  # Google應用程式密碼flaskTool
 
-
     # 設定 SMTP 伺服器資訊
     smtp_server = 'smtp.gmail.com'
     smtp_port = 587  # Gmail 使用 587
@@ -15,7 +14,7 @@ def send_email(recipient_email, subject, body):
     try:
         # 建立郵件物件
         message = MIMEMultipart()
-        message['From'] = sender_email
+        message['From'] = 'Flask Tool <denny0979539212@gmail.com>'
         message['To'] = recipient_email
         message['Subject'] = subject
 
