@@ -3,7 +3,7 @@ from flask import redirect, url_for, render_template, flash, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email
-from ...email_sender import send_email
+from email_sender import send_email
 import secrets
 import string
 import sqlite3

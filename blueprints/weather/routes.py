@@ -14,6 +14,7 @@ def weather_search():
     city_data = None
     message = None
     city = None
+    execution_time = None
 
     if request.method == "POST":
         city = request.form.get("city")

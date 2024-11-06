@@ -3,12 +3,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
-def send_email(recipient_email, body):
+def send_email(recipient_email, subject, body):
     sender_email = 'denny0979539212@gmail.com'
     sender_password = os.getenv('sender_password')  # Google應用程式密碼flaskTool
 
-    # 郵件主題
-    subject = 'Python 發送的測試郵件'
 
     # 設定 SMTP 伺服器資訊
     smtp_server = 'smtp.gmail.com'

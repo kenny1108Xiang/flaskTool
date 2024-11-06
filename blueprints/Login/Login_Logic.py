@@ -1,4 +1,3 @@
-from werkzeug.security import check_password_hash
 import sqlite3
 
 class Login_Class:

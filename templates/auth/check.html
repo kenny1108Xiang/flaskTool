@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* 基本樣式，可根據需要調整 */
+        .error-message {
+            color: red;
+        }
+    </style>
 </head>
+
 <body>
-    <form action="{{ url_for='' }}">
-        <input type="text">
+    <h2>驗證碼檢查</h2>
+    <form method="POST" action="{{ url_for('Register.Check_Page') }}">
+        {{ form.hidden_tag() }}
+
+        <div>
+            {{ form.verification_code.label }}
+            {{ form.verification_code(size=32) }}
+            {% for error in form.verification_code.errors %}
+            <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div>
+            {{ form.submit() }}
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
     </form>
 </body>
+
 </html>
