@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo, Email, Length, Regexp
-from flask import render_template, request, flash, redirect, url_for, session
+from flask import render_template, flash, redirect, url_for, session
 from werkzeug.security import generate_password_hash
 from email_sender import send_email
 import secrets
@@ -49,7 +49,7 @@ def Register(username, account, password, email):
 
         cursor.execute("INSERT INTO userData (username, account, password, email)\
                         VALUES (?, ?, ?, ?)",\
-                        (username, account, generate_password_hash(password), email))
+                        (username, account, password, email))
         conn.commit()
     except sqlite3.IntegrityError as e:
         # 檢查是否是 UNIQUE 約束錯誤
@@ -138,7 +138,8 @@ def Check_Page():
         cursor.execute("SELECT * FROM temp_registrations")
         registration_data = cursor.fetchone()
         
-        Register(registration_data[0], registration_data[1], registration_data[2], session['email'])
+        Register(registration_data[0], registration_data[1], generate_password_hash(registration_data[2]), session['email'])
+        session.clear()
 
         # 刪除 temp_registrations 中的所有資料
         cursor.execute("DELETE FROM temp_registrations")
@@ -149,5 +150,5 @@ def Check_Page():
         return redirect(url_for('Login.Login_Page'))
 
     # 如果是 GET 請求，或 POST 表單驗證失敗，直接顯示表單
-    return render_template('auth/check.html', form=form)
+    return render_template('auth/check.html', form=form, mode="Register")
 

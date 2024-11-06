@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <h2 class="mt-5">忘記密碼</h2>
-        <form method="POST" action="{{ url_for('forgot_password') }}">
+        <form method="POST" action="{{ url_for('Forgot.Forgot_Page') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.email.label(class="form-label") }}

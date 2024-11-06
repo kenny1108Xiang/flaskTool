@@ -1,10 +1,12 @@
+{% if mode == "Register" %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>註冊帳號</title>
     <style>
         /* 基本樣式，可根據需要調整 */
         .error-message {
@@ -14,7 +16,7 @@
 </head>
 
 <body>
-    <h2>驗證碼檢查</h2>
+    <h2>註冊碼檢查</h2>
     <form method="POST" action="{{ url_for('Register.Check_Page') }}">
         {{ form.hidden_tag() }}
 
@@ -42,3 +44,52 @@
 </body>
 
 </html>
+
+{% elif mode == "Forgot" %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忘記帳號密碼</title>
+    <style>
+        /* 基本樣式，可根據需要調整 */
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>復原碼檢查</h2>
+    <form method="POST" action="{{ url_for('Forgot.Check_Page') }}">
+        {{ form.hidden_tag() }}
+
+        <div>
+            {{ form.verification_code.label }}
+            {{ form.verification_code(size=32) }}
+            {% for error in form.verification_code.errors %}
+            <div class="error-message">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div>
+            {{ form.submit() }}
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </form>
+</body>
+
+</html>
+
+{% endif %}
