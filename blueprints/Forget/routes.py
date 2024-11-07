@@ -10,7 +10,10 @@ import sqlite3
 from werkzeug.security import check_password_hash
 
 class EmailForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[
+        DataRequired(message="請填寫電子郵件地址。"), 
+        Email(message="請輸入有效的電子郵件地址。")
+    ])
     submit = SubmitField('送出')
 
 class CheckForm(FlaskForm):

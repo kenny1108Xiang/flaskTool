@@ -71,45 +71,43 @@ def Register(username, account, password, email):
 @Register_bp.route('/', methods=['GET', 'POST'])
 def Register_Page():
     form = RegistrationForm()
-    if form.validate_on_submit():  #  POST 與 表單驗證
+    if form.validate_on_submit():
         email = form.email.data
-        check = generate_secure_code()
-        print(email, check)
+
         try:
-            send_email(email, "註冊驗證碼", check)
+            # 使用 with 管理資料庫連接，確保操作後自動關閉連接
+            with sqlite3.connect('database/auth.db') as conn:
+                cursor = conn.cursor()
 
-            conn = sqlite3.connect('database/auth.db')
-            cursor = conn.cursor()
+                # 檢查 email 是否已存在
+                cursor.execute("SELECT 1 FROM userData WHERE email = ?", (email,))
+                if cursor.fetchone():
+                    flash("該電子郵件已被註冊")
+                    return render_template('auth/Register.html', form=form)
 
-            cursor.execute("INSERT INTO temp_registrations (username, account, password, code)\
-                            VALUES (?, ?, ?, ?)",\
+                # 發送驗證碼
+                check = generate_secure_code()
+                if not send_email(email, "註冊驗證碼", check):
+                    flash("傳送驗證碼失敗，請稍後再試")
+                    return render_template('auth/Register.html', form=form)
+
+                # 插入暫存註冊資料並提交
+                cursor.execute("INSERT INTO temp_registrations (username, account, password, code) VALUES (?, ?, ?, ?)",
                                 (form.username.data, form.account.data, form.password.data, check))
-            conn.commit()
-            conn.close()
+                conn.commit()
 
-            session['email'] = email
-            
-
-            return redirect(url_for('Register.Check_Page'))
+                # 儲存 email 至 session，便於下一步確認身份
+                session['email'] = email
+                return redirect(url_for('Register.Check_Page'))
 
         except Exception as e:
             print(e)
-            flash("傳送驗證碼失敗，如果都正確，請找管理員")
+            flash("系統錯誤，請稍後再試或聯絡管理員")
             return render_template('auth/Register.html', form=form)
-        
-        
 
+    # 初次加載或驗證失敗時，重新渲染註冊頁面
     return render_template('auth/Register.html', form=form)
 
-
-'''
-        result = Register(username, account, password, email)
-        if result == "duplicate_account_password":
-            flash('帳號與密碼有重複的人使用', 'danger')
-        else:
-            flash("註冊成功，請重新登入", 'success')
-            return redirect(url_for('Login.Login_Page'))
-'''
 
 @Register_bp.route('/Check', methods=['POST', 'GET'])
 def Check_Page():

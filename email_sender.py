@@ -5,7 +5,7 @@ import os
 
 def send_email(recipient_email, subject, body):
     sender_email = 'denny0979539212@gmail.com'
-    sender_password = os.getenv('sender_password')  # Google應用程式密碼flaskTool
+    sender_password = os.getenv('sender_password')  # 從環境變數獲取應用程式密碼
 
     # 設定 SMTP 伺服器資訊
     smtp_server = 'smtp.gmail.com'
@@ -28,5 +28,7 @@ def send_email(recipient_email, subject, body):
             server.sendmail(sender_email, recipient_email, message.as_string())  # 傳送郵件
 
         print("郵件傳送成功！")
+        return True  # 傳送成功，回傳 True
     except Exception as e:
         print(f"郵件傳送失敗：{e}")
+        return False  # 傳送失敗，回傳 False
